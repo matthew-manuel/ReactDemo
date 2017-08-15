@@ -2,13 +2,14 @@ import React from 'react';
 import {render} from 'react-dom';
 
 import MessageList from "./MessageList.js";
+import MessageAdder from "./MessageAdder.js";
 
 class App extends React.Component {
 	constructor(props) {
 		super(props);
 	    this.state = {
 			messagesUrl: 'https://matthew-test.herokuapp.com/messages/?format=json',
-	     	messages: undefined,
+	     	messages: null,
 			nextPageUrl: null,
 			prevPageUrl: null,
 			loadStatus: null
@@ -60,6 +61,8 @@ class App extends React.Component {
     	return (
     		<div>
 	    		<h1>Matthew's React Demo</h1>
+				<MessageAdder loading={this.state.loadStatus} />
+
 				{messagesContent}
         	</div>
 		);

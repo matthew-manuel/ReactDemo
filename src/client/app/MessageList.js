@@ -10,8 +10,9 @@ class MessageList extends React.Component {
   }
 
   render() {
-    const messages = this.props.messages.map((message) =>
-      <li key={message.id}><Message message={message} /></li>
+    var messages = (this.props.messages && this.props.messages.constructor === Array) ? this.props.messages : [];
+    var messagesJsx = messages.map((message) =>
+      <li key={message.id}><Message message={message} reloadPage={this.props.reloadPage} /></li>
     );
 
     return (
@@ -24,7 +25,7 @@ class MessageList extends React.Component {
           prevPageUrl={this.props.prevPageUrl}
         />
         <ul>
-          {messages}
+          {messagesJsx}
         </ul>
       </div>
     );

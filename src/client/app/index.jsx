@@ -17,6 +17,7 @@ class App extends React.Component {
 
 	    this._loadNextPage = this._loadNextPage.bind(this);
 	    this._loadPrevPage = this._loadPrevPage.bind(this);
+	    this.reloadPage = this.reloadPage.bind(this);
 	}
 
 	_loadMessages(url) {
@@ -35,9 +36,11 @@ class App extends React.Component {
 			    throw new TypeError("Oops, we haven't got JSON!");
 			})
 			.then(function(json) {
-				console.log('payload from API response:', json);
+				console.log('payload from API response:', url, json);
+
 				that.setState({
 					messages: json.results,
+					messagesUrl: url,
 					nextPageUrl: json.next,
 					prevPageUrl: json.previous,
 			        loadStatus: 'loaded'
@@ -49,18 +52,26 @@ class App extends React.Component {
 
 	_loadNextPage() {
 		this._loadMessages(this.state.nextPageUrl);
+
+		console.log('Loaded Next page: ', this.state.messagesUrl);
 	}
 
 	_loadPrevPage() {
 		this._loadMessages(this.state.prevPageUrl);
+		console.log('Loaded Prev page: ', this.state.messagesUrl);
 	}
 
 	componentWillMount() {
-    	this._loadMessages(this.state.messagesUrl);
+		this.reloadPage();
+  	}
+
+  	reloadPage() {
+		console.log('Reloading page: ', this.state.messagesUrl);
+
+  		this._loadMessages(this.state.messagesUrl);
   	}
 
 	render () {
-
 		let messagesContent = null;
 
 	    if (this.state.loadStatus == 'loaded') {
@@ -70,6 +81,7 @@ class App extends React.Component {
 				_loadPrevPage={this._loadPrevPage}
 				nextPageUrl={this.state.nextPageUrl}
 				prevPageUrl={this.state.prevPageUrl}
+				reloadPage={this.reloadPage}
 			/>
 	    } else {
 	    	messagesContent = "Loading from API!";

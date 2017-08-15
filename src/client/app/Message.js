@@ -9,7 +9,14 @@ class Message extends React.Component {
   render() {
     return (
       <div>
-        Message: {JSON.stringify(this.props.message)}  
+        <table>
+          <tbody>
+            <tr><th>ID</th><td>{this.props.message.id}</td></tr>
+            <tr><th>Message</th><td>{this.props.message.text}</td></tr>
+            <tr><th>Created</th><td>{this.props.message.created_at}</td></tr>
+            <tr><th>URL</th><td><a href={this.props.message.url}>{this.props.message.url}</a></td></tr>
+          </tbody>
+        </table> 
       </div>
     );
   }

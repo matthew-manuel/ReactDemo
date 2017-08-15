@@ -31,17 +31,15 @@ class App extends React.Component {
 			    throw new TypeError("Oops, we haven't got JSON!");
 			})
 			.then(function(json) {
-				console.log('Response JSON:', json);
-
+				console.log('payload from API response:', json);
 				that.setState({
 					messages: json.results,
 					nextPageUrl: json.next,
 					prevPageUrl: json.previous,
 			        loadStatus: 'loaded'
 			    });
-
 			}).then(function(){
-				// console.log(that.state.messages);
+				console.log('Messages loaded from API:', that.state.messages);
 			});	
 	}
 
@@ -51,19 +49,18 @@ class App extends React.Component {
 
 	render () {
 
-		let output = null;
+		let messagesContent = null;
 
 	    if (this.state.loadStatus == 'loaded') {
-	    	console.log('messages=', this.state.messages);
-			output = <MessageList messages={this.state.messages}/>
+			messagesContent = <MessageList messages={this.state.messages}/>
 	    } else {
-	    	output = "Loading from API!";
+	    	messagesContent = "Loading from API!";
 	    }
 
     	return (
     		<div>
 	    		<h1>Matthew's React Demo</h1>
-				{output}
+				{messagesContent}
         	</div>
 		);
   	}

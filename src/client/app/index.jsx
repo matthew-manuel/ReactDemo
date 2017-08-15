@@ -14,16 +14,19 @@ class App extends React.Component {
 			prevPageUrl: null,
 			loadStatus: null
 	    };
-	};
 
-	_loadMessages() {
+	    this._loadNextPage = this._loadNextPage.bind(this);
+	    this._loadPrevPage = this._loadPrevPage.bind(this);
+	}
+
+	_loadMessages(url) {
 		const that = this;
 
 		that.setState({
 			loadStatus: 'loading'
 		});
 
-		fetch(this.state.messagesUrl)
+		fetch(url)
 			.then(function(response) {
 			    var contentType = response.headers.get("content-type");
 			    if(contentType && contentType.includes("application/json")) {
@@ -44,16 +47,30 @@ class App extends React.Component {
 			});	
 	}
 
+	_loadNextPage() {
+		this._loadMessages(this.state.nextPageUrl);
+	}
+
+	_loadPrevPage() {
+		this._loadMessages(this.state.prevPageUrl);
+	}
+
 	componentWillMount() {
-    	this._loadMessages();
-  	};
+    	this._loadMessages(this.state.messagesUrl);
+  	}
 
 	render () {
 
 		let messagesContent = null;
 
 	    if (this.state.loadStatus == 'loaded') {
-			messagesContent = <MessageList messages={this.state.messages}/>
+			messagesContent = <MessageList 
+				messages={this.state.messages} 
+				_loadNextPage={this._loadNextPage}
+				_loadPrevPage={this._loadPrevPage}
+				nextPageUrl={this.state.nextPageUrl}
+				prevPageUrl={this.state.prevPageUrl}
+			/>
 	    } else {
 	    	messagesContent = "Loading from API!";
 	    }

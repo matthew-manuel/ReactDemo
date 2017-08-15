@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Message from './Message.js';
+import MessageListNav from './MessageListNav.js';
 
 class MessageList extends React.Component {
 
@@ -16,9 +17,15 @@ class MessageList extends React.Component {
     return (
       <div>
         <h2>Messages</h2>
-          <ul>
-            {messages}
-          </ul>
+        <MessageListNav 
+          _loadNextPage={this.props._loadNextPage} 
+          _loadPrevPage={this.props._loadPrevPage}
+          nextPageUrl={this.props.nextPageUrl}
+          prevPageUrl={this.props.prevPageUrl}
+        />
+        <ul>
+          {messages}
+        </ul>
       </div>
     );
   }

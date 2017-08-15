@@ -1,8 +1,8 @@
 import React from 'react';
 import {render} from 'react-dom';
 
-import MessageList from "./MessageList.js";
-import MessageAdder from "./MessageAdder.js";
+import MessageList from "./MessageList.jsx";
+import MessageAdder from "./MessageAdder.jsx";
 
 class App extends React.Component {
 	constructor(props) {

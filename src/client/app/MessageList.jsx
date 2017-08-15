@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Message from './Message.js';
-import MessageListNav from './MessageListNav.js';
+import Message from './Message.jsx';
+import MessageListNav from './MessageListNav.jsx';
 
 class MessageList extends React.Component {
 

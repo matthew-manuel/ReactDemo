@@ -1,6 +1,6 @@
 import React from 'react';
 
-import MessageDeleteButton from './MessageDeleteButton.js';
+import MessageDeleteButton from './MessageDeleteButton.jsx';
 
 class Message extends React.Component {
 
